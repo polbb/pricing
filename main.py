@@ -15,6 +15,7 @@ import streamlit as st
 from dotenv import load_dotenv
 import os
 import json
+from utils import severity_generator
 
 # Streamlit UI
 st.set_page_config(layout="wide")  # Force wide mode
@@ -92,4 +93,16 @@ with st.container(border=True):
             int(severity_dist_x4)
         ), name="Severity"))
         st.plotly_chart(fig_severity)
+
+
+notice_pct_dist = np.random.triangular(float(notice_pct_dist_x1), float(notice_pct_dist_x2), float(notice_pct_dist_x3), int(notice_pct_dist_x4))
+notice_pct_loss_dist = np.random.triangular(float(notice_pct_loss_dist_x1), float(notice_pct_loss_dist_x2), float(notice_pct_loss_dist_x3), int(notice_pct_loss_dist_x4))
+severity_dist = np.random.triangular(float(severity_dist_x1), float(severity_dist_x2), float(severity_dist_x3), int(severity_dist_x4))
+
+notice_pct, notice_pct_loss, low_severity_pct, med_severity_pct, high_severity_pct = severity_generator(notice_pct_dist, notice_pct_loss_dist, severity_dist)
+st.write("Notice %:", notice_pct)
+st.write("Notice % Loss:", notice_pct_loss)
+st.write("Low Severity %:", low_severity_pct)
+st.write("Medium Severity %:", med_severity_pct)
+st.write("High Severity %:", high_severity_pct)
 
