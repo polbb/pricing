@@ -1,3 +1,5 @@
+import numpy as np
+
 def severity_generator(notice_pct_dist, notice_pct_loss_dist, severity_dist):
     notice_pct = np.random.choice(notice_pct_dist)
     notice_pct_loss = np.random.choice(notice_pct_loss_dist)
