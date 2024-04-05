@@ -165,3 +165,8 @@ with st.container(border=True):
     j_pricing_low, j_pricing_high = col24.slider("Select J Pricing Range", min_value=0.03, max_value=0.08, value=(0.035, 0.075))
 
 pricing_list = pricing_generator(DV_list, limit_list, attachment_pt_list, primary_xs_list, pricing_range, sme_pricing_low, sme_pricing_high, mm_pricing_low, mm_pricing_high, j_pricing_low, j_pricing_high)
+
+def w(string):
+    st.write(string)
+
+w(f'procong list:{pricing_list}')
