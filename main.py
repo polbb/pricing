@@ -136,7 +136,7 @@ DV_list = DV_generator(deal_count, DV_range, sme_low_DV, sme_upper_DV, mm_low_DV
 
 with st.container(border=True):
     col4, col5, col6, col7 = st.columns([2,2,2,2])
-    low_limit, upper_limit = col4.slider("Select Limit Range", min_value=10000000, max_value=100000000, value=(30000000, 50000000), step=2500000)
+    low_limit, upper_limit = col4.slider("Select Limit Range", min_value=10000000, max_value=100000000, value=(30000000, 50000000))
     limit_range = col5.number_input("Limit Range Increment", value=2500000)
 
 with st.container(border=True):
