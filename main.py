@@ -25,15 +25,15 @@ aws_default_region = st.secrets.AWS_DEFAULT_REGION
 # aws_default_region = os.getenv('AWS_DEFAULT_REGION')
 
 # AWS Services Clients
-dynamodb = boto3.resource('dynamodb', aws_access_key_id=aws_access_key_id, aws_secret_access_key=aws_secret_access_key, region_name=aws_default_region)
-s3 = boto3.client('s3', aws_access_key_id=aws_access_key_id, aws_secret_access_key=aws_secret_access_key, region_name=aws_default_region)
+# dynamodb = boto3.resource('dynamodb', aws_access_key_id=aws_access_key_id, aws_secret_access_key=aws_secret_access_key, region_name=aws_default_region)
+# s3 = boto3.client('s3', aws_access_key_id=aws_access_key_id, aws_secret_access_key=aws_secret_access_key, region_name=aws_default_region)
 
 st.title("ArgoXai - Pricing Tool")
-# col1, col2, _, _, _, _, _, _ = st.columns([3,3,1,1,1,1,1,1])
-# fuzzy_search = col1.text_input("Search Documents")
+col1, col2, _, _, _, _, _, _ = st.columns([3,3,1,1,1,1,1,1])
+number_of_simulations = col1.text_input("Enter Number of Simulations")
 data = st.button("Search")
 st.divider()
 
 if data:
-    st.write('test')
+    st.write(number_of_simulations)
 
