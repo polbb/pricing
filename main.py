@@ -206,17 +206,17 @@ with st.container(border=True):
             
 
             notice_pct, notice_pct_loss, low_severity_pct, med_severity_pct, high_severity_pct = severity_generator(notice_pct_dist, notice_pct_loss_dist, severity_dist)
-            section_message.text(f"Severity Generation...")
+            section_message.text("Generating Severity...")
             DV_list = DV_generator(deal_count, DV_range, sme_low_DV, sme_upper_DV, mm_low_DV, mm_upper_DV, sme_pct, mm_pct, j_pct, j_low_DV, j_upper_DV)
-            section_message.text(f"DV Generation...")
+            section_message.text("Generating DV...")
             limit_list, attachment_pt_list, primary_xs_list = structure_generator(DV_list, low_limit, upper_limit, limit_range, primary_pct, xs_pct, pri_attachment_pt_range)
-            section_message.text(f"Structure Generation...")
+            section_message.text("Generating Structure...")
             pricing_list = pricing_generator(DV_list, limit_list, attachment_pt_list, primary_xs_list, pricing_range, sme_pricing_low, sme_pricing_high, mm_pricing_low, mm_pricing_high, j_pricing_low, j_pricing_high)
-            section_message.text(f"Pricing Generation...")
+            section_message.text("Generating Pricing...")
             notice_list = notice_generator(deal_count, notice_pct, notice_pct_loss, low_severity_pct, med_severity_pct, high_severity_pct)
-            section_message.text(f"Notice Generation...")
+            section_message.text("Generating Notice...")
             loss_list = loss_generator(notice_list, limit_list, low_low_severity_loss, low_high_severity_loss, med_low_severity_loss, med_high_severity_loss)
-            section_message.text(f"Loss Generation...")
+            section_message.text("Generating Loss...")
             df = df_generator(DV_list, pricing_list, attachment_pt_list, notice_list, loss_list, limit_list)
             performance_stats.append(df['Performance'].sum().round(0))
 
@@ -243,7 +243,7 @@ with st.container(border=True):
 
         # Clearing messages after completion
         process_message.empty()
-        iteration_message.empty()
+        section_message.empty()
 
         # Reset progress bar after completion
         progress_bar.empty()
