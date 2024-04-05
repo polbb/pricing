@@ -47,7 +47,7 @@ notice_pct_dist_x3 = col3.text_input("Enter notice_pct_dist_x3", value=".25")
 notice_pct_dist_x4 = col4.text_input("Enter notice_pct_dist_x4", value="100000")
 
 
-s
+
 if data:
 
     st.write(number_of_simulations)
