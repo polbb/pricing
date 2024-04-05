@@ -109,21 +109,18 @@ st.write("Medium Severity %:", med_severity_pct)
 st.write("High Severity %:", high_severity_pct)
 
 with st.container(border=True):
-    col13, col14, _, _ = st.columns([2,2,2,2])
+    col13, col14, col18, col19 = st.columns([2,2,2,2])
     deal_count = col13.number_input("Deal Count", value=100)
     DV_range = col14.number_input("DV Range", value=2500000)
+    sme_pct = col18.number_input("SME %", value=0.35, format="%.2f")
+    mm_pct = col19.number_input("MM %", value=0.55, format="%.2f")
 
-with st.container():
-    col15, col16, col17, _ = st.columns([2,2,2,2])
+with st.container(border=True):
+    col15, col16, col17, col20 = st.columns([2,2,2,2])
     sme_low_DV, sme_upper_DV = col15.slider("Select SME DV Range", min_value=1000000, max_value=100000000, value=(10000000, 75000000))
     mm_low_DV, mm_upper_DV = col16.slider("Select MM DV Range", min_value=50000000, max_value=1000000000, value=(75000000, 750000000))
     j_low_DV, j_upper_DV = col17.slider("Select J DV Range", min_value=500000000, max_value=10000000000, value=(750000000, 5000000000))
-
-with st.container():
-    sme_pct = st.number_input("SME %", value=0.35, format="%.2f")
-    mm_pct = st.number_input("MM %", value=0.55, format="%.2f")
-    j_pct = st.number_input("J %", value=0.1, format="%.2f")
-
+    j_pct = col20.number_input("J %", value=0.1, format="%.2f")
 DV_list = DV_generator(deal_count, DV_range, sme_low_DV, sme_upper_DV, mm_low_DV, mm_upper_DV, sme_pct, mm_pct, j_pct, j_low_DV, j_upper_DV)
 
 st.write(f'DV list: {DV_list}')
