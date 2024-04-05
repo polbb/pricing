@@ -108,19 +108,16 @@ st.write("Low Severity %:", low_severity_pct)
 st.write("Medium Severity %:", med_severity_pct)
 st.write("High Severity %:", high_severity_pct)
 
-# Input for DV_generator function in separate containers
 with st.container(border=True):
     col13, col14, _, _ = st.columns([2,2,2,2])
     deal_count = col13.number_input("Deal Count", value=100)
     DV_range = col14.number_input("DV Range", value=2500000)
-with st.container():
-    sme_low_DV, sme_upper_DV = st.slider("Select SME DV Range", min_value=1000000, max_value=100000000, value=(10000000, 75000000))
 
 with st.container():
-    mm_low_DV, mm_upper_DV = st.slider("Select MM DV Range", min_value=50000000, max_value=1000000000, value=(75000000, 750000000))
-
-with st.container():
-    j_low_DV, j_upper_DV = st.slider("Select J DV Range", min_value=500000000, max_value=10000000000, value=(750000000, 5000000000))
+    col15, col16, col17, _ = st.columns([2,2,2,2])
+    sme_low_DV, sme_upper_DV = col15.slider("Select SME DV Range", min_value=1000000, max_value=100000000, value=(10000000, 75000000))
+    mm_low_DV, mm_upper_DV = col16.slider("Select MM DV Range", min_value=50000000, max_value=1000000000, value=(75000000, 750000000))
+    j_low_DV, j_upper_DV = col17.slider("Select J DV Range", min_value=500000000, max_value=10000000000, value=(750000000, 5000000000))
 
 with st.container():
     sme_pct = st.number_input("SME %", value=0.35, format="%.2f")
