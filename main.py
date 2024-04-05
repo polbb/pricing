@@ -43,23 +43,62 @@ data = st.button("Search")
 st.divider()
 
 with st.container(border=True):
-    st.title("Notice Percentage Distribution")
-    col1, col2, col3, col4 = st.columns([2,2,2,2])
-    notice_pct_dist_x1 = col1.text_input("Left", value=".05")
-    notice_pct_dist_x2 = col2.text_input("Center", value=".15")
-    notice_pct_dist_x3 = col3.text_input("Right", value=".25")
-    notice_pct_dist_x4 = col4.text_input("Size", value="100000")
+    st.title("Distributions Input")
 
-    if data:
-        # Generate a distribution plot using the input values
-        fig = go.Figure(data=[go.Histogram(x=np.random.triangular(
-            float(notice_pct_dist_x1), 
-            float(notice_pct_dist_x2), 
-            float(notice_pct_dist_x3), 
-            int(notice_pct_dist_x4)
-        ))])
-        fig.update_layout(title_text='Notice Percentage Distribution Plot', width=400, height=300)  # Adjusted size
-        st.plotly_chart(fig, use_container_width=True)  # Plot inside the container
+    # Notice Percentage Distribution
+    col1, col2, col3, col4 = st.columns([2,2,2,2])
+    st.subheader("Notice Percentage Distribution")
+    notice_pct_dist_x1 = col1.text_input("Left", value=".05", key="notice_left")
+    notice_pct_dist_x2 = col2.text_input("Center", value=".15", key="notice_center")
+    notice_pct_dist_x3 = col3.text_input("Right", value=".25", key="notice_right")
+    notice_pct_dist_x4 = col4.text_input("Size", value="100000", key="notice_size")
+
+    # Notice Percentage Loss Distribution
+    st.subheader("Notice Percentage Loss Distribution")
+    col5, col6, col7, col8 = st.columns([2,2,2,2])
+    notice_pct_loss_dist_x1 = col5.text_input("Left", value=".15", key="loss_left")
+    notice_pct_loss_dist_x2 = col6.text_input("Center", value=".25", key="loss_center")
+    notice_pct_loss_dist_x3 = col7.text_input("Right", value=".35", key="loss_right")
+    notice_pct_loss_dist_x4 = col8.text_input("Size", value="100000", key="loss_size")
+
+    # Severity Distribution
+    st.subheader("Severity Distribution")
+    col9, col10, col11, col12 = st.columns([2,2,2,2])
+    severity_dist_x1 = col9.text_input("Left", value=".65", key="severity_left")
+    severity_dist_x2 = col10.text_input("Center", value=".7", key="severity_center")
+    severity_dist_x3 = col11.text_input("Right", value=".75", key="severity_right")
+    severity_dist_x4 = col12.text_input("Size", value="100000", key="severity_size")
+
+if data:
+    # Generate distribution plots using the input values
+    fig = go.Figure()
+
+    # Notice Percentage Distribution Plot
+    fig.add_trace(go.Histogram(x=np.random.triangular(
+        float(notice_pct_dist_x1), 
+        float(notice_pct_dist_x2), 
+        float(notice_pct_dist_x3), 
+        int(notice_pct_dist_x4)
+    ), name="Notice %"))
+
+    # Notice Percentage Loss Distribution Plot
+    fig.add_trace(go.Histogram(x=np.random.triangular(
+        float(notice_pct_loss_dist_x1), 
+        float(notice_pct_loss_dist_x2), 
+        float(notice_pct_loss_dist_x3), 
+        int(notice_pct_loss_dist_x4)
+    ), name="Notice % Loss"))
+
+    # Severity Distribution Plot
+    fig.add_trace(go.Histogram(x=np.random.triangular(
+        float(severity_dist_x1), 
+        float(severity_dist_x2), 
+        float(severity_dist_x3), 
+        int(severity_dist_x4)
+    ), name="Severity"))
+
+    fig.update_layout(title_text='Distributions Plot')
+    st.plotly_chart(fig)
 
     # for i in range(num_simulations):
 
