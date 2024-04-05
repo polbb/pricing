@@ -194,10 +194,16 @@ with st.container(border=True):
 
         # Adding a progress bar
         progress_bar = st.progress(0)
+        # Adding placeholders for messages
+        process_message = st.empty()
+        iteration_message = st.empty()
 
         for i in range(number_of_simulations):
             progress = int(((i+1)/number_of_simulations)*100)
             progress_bar.progress(progress)
+            # Updating messages
+            process_message.text(f"Processing: Simulation {i+1}/{number_of_simulations}")
+            iteration_message.text(f"Iteration: {i+1}")
 
             notice_pct, notice_pct_loss, low_severity_pct, med_severity_pct, high_severity_pct = severity_generator(notice_pct_dist, notice_pct_loss_dist, severity_dist)
             DV_list = DV_generator(deal_count, DV_range, sme_low_DV, sme_upper_DV, mm_low_DV, mm_upper_DV, sme_pct, mm_pct, j_pct, j_low_DV, j_upper_DV)
@@ -228,6 +234,10 @@ with st.container(border=True):
         st.write(f"Average: {average_performance}")
         st.write(f"Max: {max_performance}")
         st.write(f"Min: {min_performance}")
+
+        # Clearing messages after completion
+        process_message.empty()
+        iteration_message.empty()
 
         # Reset progress bar after completion
         progress_bar.empty()
