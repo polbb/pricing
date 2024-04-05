@@ -2,7 +2,7 @@ requests
 boto3
 python-dotenv
 pandas
-
+plotly~=5.9.0
 
 streamlit
 bs4
