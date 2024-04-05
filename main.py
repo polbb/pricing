@@ -15,7 +15,7 @@ import streamlit as st
 from dotenv import load_dotenv
 import os
 import json
-from utils import severity_generator, DV_generator, structure_generator, pricing_generator
+from utils import severity_generator, DV_generator, structure_generator, pricing_generator, notice_generator
 
 
 
@@ -169,4 +169,8 @@ pricing_list = pricing_generator(DV_list, limit_list, attachment_pt_list, primar
 def w(string):
     st.write(string)
 
-w(f'procong list:{pricing_list}')
+# w(f'procong list:{pricing_list}')
+
+notice_list = notice_generator(deal_count, notice_pct, notice_pct_loss, low_severity_pct, med_severity_pct, high_severity_pct)
+
+w(f'notice list: {notice_list}')

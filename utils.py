@@ -93,3 +93,25 @@ def pricing_generator(DV_list, limit_list, attachment_pt_list, primary_xs_list, 
             pricing_list.append(round(random.uniform(j_pricing_low, j_pricing_high), 4)) 
 
     return pricing_list
+
+def notice_generator(deal_count, notice_pct, notice_pct_loss, low_severity_pct, med_severity_pct, high_severity_pct):
+    notice_list = []
+    for x in range(int(deal_count*notice_pct*notice_pct_loss)):
+        notice_list.append(1)
+    for x in range(int(deal_count*notice_pct*notice_pct_loss*low_severity_pct)):
+        notice_list.append(2)
+    for x in range(int(deal_count*notice_pct*notice_pct_loss*med_severity_pct)):
+        notice_list.append(3)
+    for x in range(int(deal_count*notice_pct*notice_pct_loss*high_severity_pct)):
+        notice_list.append(4)
+    for x in range(int(deal_count*(1-notice_pct))):
+        notice_list.append(0)
+    if deal_count - len(notice_list) > 0:
+        for x in range(deal_count - len(notice_list)):
+            notice_list.append(randrange(5))
+    if deal_count - len(notice_list) < 0:
+        for x in range(abs(deal_count - len(notice_list))):
+            notice_list.pop(randrange(len(notice_list)))
+    random.shuffle(notice_list)
+    
+    return notice_list 
