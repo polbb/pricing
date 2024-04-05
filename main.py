@@ -17,6 +17,7 @@ import os
 import json
 from utils import severity_generator
 
+
 # Streamlit UI
 st.set_page_config(layout="wide")  # Force wide mode
 with open("style.css") as css:
