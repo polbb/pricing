@@ -106,3 +106,4 @@ st.write("Low Severity %:", low_severity_pct)
 st.write("Medium Severity %:", med_severity_pct)
 st.write("High Severity %:", high_severity_pct)
 
+
