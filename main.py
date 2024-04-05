@@ -40,11 +40,13 @@ number_of_simulations = col1.text_input("Enter Number of Simulations")
 data = st.button("Search")
 st.divider()
 
-col1, col2, col3, col4, _, _, _, _ = st.columns([2,2,2,2,1,1,1,1])
-notice_pct_dist_x1 = col1.text_input("Enter notice_pct_dist_x1", value=".05")
-notice_pct_dist_x2 = col2.text_input("Enter notice_pct_dist_x2", value=".15")
-notice_pct_dist_x3 = col3.text_input("Enter notice_pct_dist_x3", value=".25")
-notice_pct_dist_x4 = col4.text_input("Enter notice_pct_dist_x4", value="100000")
+with st.container():
+    st.title("Notice Percentage Distribution")
+    col1, col2, col3, col4, _, _, _, _ = st.columns([2,2,2,2,1,1,1,1])
+    notice_pct_dist_x1 = col1.text_input("Enter notice_pct_dist_x1", value=".05")
+    notice_pct_dist_x2 = col2.text_input("Enter notice_pct_dist_x2", value=".15")
+    notice_pct_dist_x3 = col3.text_input("Enter notice_pct_dist_x3", value=".25")
+    notice_pct_dist_x4 = col4.text_input("Enter notice_pct_dist_x4", value="100000")
 
 
 
