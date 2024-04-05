@@ -36,7 +36,6 @@ def div():
 st.title("ArgoXai - Pricing Tool")
 col1, col2, _, _, _, _, _, _ = st.columns([3,3,1,1,1,1,1,1])
 number_of_simulations = col1.number_input("Enter Number of Simulations", value=10000)
-data = st.button("Search")
 
 st.divider()
 
@@ -50,16 +49,15 @@ with st.container(border=True):
     notice_pct_dist_x3 = col3.number_input("Right", value=0.25, key="notice_right", format="%.2f")
     notice_pct_dist_x4 = col4.number_input("Size", value=100000, key="notice_size")
     
-    if data:
-        # Generate Notice Percentage Distribution Plot
-        fig_notice_pct = go.Figure()
-        fig_notice_pct.add_trace(go.Histogram(x=np.random.triangular(
-            notice_pct_dist_x1, 
-            notice_pct_dist_x2, 
-            notice_pct_dist_x3, 
-            notice_pct_dist_x4
-        ), name="Notice %"))
-        st.plotly_chart(fig_notice_pct)
+    # Generate Notice Percentage Distribution Plot
+    fig_notice_pct = go.Figure()
+    fig_notice_pct.add_trace(go.Histogram(x=np.random.triangular(
+        notice_pct_dist_x1, 
+        notice_pct_dist_x2, 
+        notice_pct_dist_x3, 
+        notice_pct_dist_x4
+    ), name="Notice %"))
+    st.plotly_chart(fig_notice_pct)
 
 # Notice Percentage Loss Distribution
 with st.container(border=True):
@@ -70,16 +68,15 @@ with st.container(border=True):
     notice_pct_loss_dist_x3 = col7.number_input("Right", value=0.35, key="loss_right", format="%.2f")
     notice_pct_loss_dist_x4 = col8.number_input("Size", value=100000, key="loss_size")
     
-    if data:
-        # Generate Notice Percentage Loss Distribution Plot
-        fig_notice_pct_loss = go.Figure()
-        fig_notice_pct_loss.add_trace(go.Histogram(x=np.random.triangular(
-            notice_pct_loss_dist_x1, 
-            notice_pct_loss_dist_x2, 
-            notice_pct_loss_dist_x3, 
-            notice_pct_loss_dist_x4
-        ), name="Notice % Loss"))
-        st.plotly_chart(fig_notice_pct_loss)
+    # Generate Notice Percentage Loss Distribution Plot
+    fig_notice_pct_loss = go.Figure()
+    fig_notice_pct_loss.add_trace(go.Histogram(x=np.random.triangular(
+        notice_pct_loss_dist_x1, 
+        notice_pct_loss_dist_x2, 
+        notice_pct_loss_dist_x3, 
+        notice_pct_loss_dist_x4
+    ), name="Notice % Loss"))
+    st.plotly_chart(fig_notice_pct_loss)
 
 # Severity Distribution
 with st.container(border=True):
@@ -90,16 +87,15 @@ with st.container(border=True):
     severity_dist_x3 = col11.number_input("Right", value=0.75, key="severity_right", format="%.2f")
     severity_dist_x4 = col12.number_input("Size", value=100000, key="severity_size")
     
-    if data:
-        # Generate Severity Distribution Plot
-        fig_severity = go.Figure()
-        fig_severity.add_trace(go.Histogram(x=np.random.triangular(
-            severity_dist_x1, 
-            severity_dist_x2, 
-            severity_dist_x3, 
-            severity_dist_x4
-        ), name="Severity"))
-        st.plotly_chart(fig_severity)
+    # Generate Severity Distribution Plot
+    fig_severity = go.Figure()
+    fig_severity.add_trace(go.Histogram(x=np.random.triangular(
+        severity_dist_x1, 
+        severity_dist_x2, 
+        severity_dist_x3, 
+        severity_dist_x4
+    ), name="Severity"))
+    st.plotly_chart(fig_severity)
 
 
 notice_pct_dist = np.random.triangular(notice_pct_dist_x1, notice_pct_dist_x2, notice_pct_dist_x3, notice_pct_dist_x4)
@@ -183,14 +179,15 @@ with st.container():
     med_low_severity_loss, med_high_severity_loss = col2.slider("Select Medium Severity Loss Range", min_value=1000000, max_value=10000000, value=(1000000, 10000000))
     # loss_list = loss_generator(notice_list, limit_list, low_low_severity_loss, low_high_severity_loss, med_low_severity_loss, med_high_severity_loss)
 
+# Calculate button placed at the bottom after all parameters have been set
+data = st.button("Calculate")
 
 # df = df_generator(DV_list, pricing_list, attachment_pt_list, notice_list, loss_list, limit_list)
 
-
-with st.container():
+with st.container(border=True):
     # Initialize an empty plot before calculations are triggered by the search button
     if not data:
-        st.write("Please initiate calculations by clicking the 'Search' button.")
+        st.write("Please initiate calculations by clicking the 'Calculate' button.")
         st.empty()
     else:
         performance_stats = []
@@ -234,3 +231,4 @@ with st.container():
 
         # Reset progress bar after completion
         progress_bar.empty()
+
