@@ -33,7 +33,7 @@ aws_default_region = st.secrets.AWS_DEFAULT_REGION
 def div():
     st.divider()
     
-st.title("ArgoXai - Pricing Tool")
+st.title("ArgoXai - CRATOS - Pricing Tool - v2.4.5")
 col1, col2, _, _, _, _, _, _ = st.columns([3,3,1,1,1,1,1,1])
 number_of_simulations = col1.number_input("Enter Number of Simulations", value=10000)
 
@@ -232,3 +232,4 @@ with st.container(border=True):
         # Reset progress bar after completion
         progress_bar.empty()
 
+w(f'Frozen: 05-04-2024')
