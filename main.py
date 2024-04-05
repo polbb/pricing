@@ -179,6 +179,8 @@ with st.container():
     med_low_severity_loss, med_high_severity_loss = col2.slider("Select Medium Severity Loss Range", min_value=1000000, max_value=10000000, value=(1000000, 10000000))
     # loss_list = loss_generator(notice_list, limit_list, low_low_severity_loss, low_high_severity_loss, med_low_severity_loss, med_high_severity_loss)
 
+
+div()
 # Calculate button placed at the bottom after all parameters have been set
 data = st.button("Calculate")
 
