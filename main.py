@@ -36,8 +36,8 @@ st.divider()
 
 # Notice Percentage Distribution
 with st.container(border=True):
-    col1, col2, col3, col4 = st.columns([2,2,2,2])
     st.subheader("Notice Percentage Distribution")
+    col1, col2, col3, col4 = st.columns([2,2,2,2])
     notice_pct_dist_x1 = col1.text_input("Left", value=".05", key="notice_left")
     notice_pct_dist_x2 = col2.text_input("Center", value=".15", key="notice_center")
     notice_pct_dist_x3 = col3.text_input("Right", value=".25", key="notice_right")
@@ -52,13 +52,12 @@ with st.container(border=True):
             float(notice_pct_dist_x3), 
             int(notice_pct_dist_x4)
         ), name="Notice %"))
-        fig_notice_pct.update_layout(title_text='Notice Percentage Distribution Plot')
         st.plotly_chart(fig_notice_pct)
 
 # Notice Percentage Loss Distribution
 with st.container(border=True):
-    col5, col6, col7, col8 = st.columns([2,2,2,2])
     st.subheader("Notice Percentage Loss Distribution")
+    col5, col6, col7, col8 = st.columns([2,2,2,2])
     notice_pct_loss_dist_x1 = col5.text_input("Left", value=".15", key="loss_left")
     notice_pct_loss_dist_x2 = col6.text_input("Center", value=".25", key="loss_center")
     notice_pct_loss_dist_x3 = col7.text_input("Right", value=".35", key="loss_right")
@@ -73,13 +72,12 @@ with st.container(border=True):
             float(notice_pct_loss_dist_x3), 
             int(notice_pct_loss_dist_x4)
         ), name="Notice % Loss"))
-        fig_notice_pct_loss.update_layout(title_text='Notice Percentage Loss Distribution Plot')
         st.plotly_chart(fig_notice_pct_loss)
 
 # Severity Distribution
 with st.container(border=True):
-    col9, col10, col11, col12 = st.columns([2,2,2,2])
     st.subheader("Severity Distribution")
+    col9, col10, col11, col12 = st.columns([2,2,2,2])
     severity_dist_x1 = col9.text_input("Left", value=".65", key="severity_left")
     severity_dist_x2 = col10.text_input("Center", value=".7", key="severity_center")
     severity_dist_x3 = col11.text_input("Right", value=".75", key="severity_right")
@@ -94,6 +92,5 @@ with st.container(border=True):
             float(severity_dist_x3), 
             int(severity_dist_x4)
         ), name="Severity"))
-        fig_severity.update_layout(title_text='Severity Distribution Plot')
         st.plotly_chart(fig_severity)
 
