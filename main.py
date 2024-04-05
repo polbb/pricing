@@ -106,11 +106,12 @@ notice_pct_loss_dist = np.random.triangular(float(notice_pct_loss_dist_x1), floa
 severity_dist = np.random.triangular(float(severity_dist_x1), float(severity_dist_x2), float(severity_dist_x3), int(severity_dist_x4))
 
 notice_pct, notice_pct_loss, low_severity_pct, med_severity_pct, high_severity_pct = severity_generator(notice_pct_dist, notice_pct_loss_dist, severity_dist)
-st.write("Notice %:", notice_pct)
-st.write("Notice % Loss:", notice_pct_loss)
-st.write("Low Severity %:", low_severity_pct)
-st.write("Medium Severity %:", med_severity_pct)
-st.write("High Severity %:", high_severity_pct)
+
+# st.write("Notice %:", notice_pct)
+# st.write("Notice % Loss:", notice_pct_loss)
+# st.write("Low Severity %:", low_severity_pct)
+# st.write("Medium Severity %:", med_severity_pct)
+# st.write("High Severity %:", high_severity_pct)
 
 with st.container(border=True):
     col13, col14, _, _ = st.columns([2,2,2,2])
@@ -131,7 +132,7 @@ with st.container(border=True):
 
 DV_list = DV_generator(deal_count, DV_range, sme_low_DV, sme_upper_DV, mm_low_DV, mm_upper_DV, sme_pct, mm_pct, j_pct, j_low_DV, j_upper_DV)
 
-st.write(f'DV list: {DV_list}')
+# st.write(f'DV list: {DV_list}')
 
 with st.container(border=True):
     col4, col5, col6, col7 = st.columns([2,2,2,2])
@@ -139,12 +140,12 @@ with st.container(border=True):
     limit_range = col5.number_input("Limit Range Increment", value=2500000)
 
 with st.container(border=True):
-    col8, col9 = st.columns(2)
+    col8, col9,_,_ = st.columns([2,2,2,2])
     primary_pct = col8.number_input("Primary %", value=0.7, format="%.2f")
     xs_pct = col9.number_input("XS %", value=0.3, format="%.2f")
 
 with st.container(border=True):
-    col18, col19, col20 = st.columns(3)
+    col18, col19, col20, _ = st.columns([2,2,2,2])
     pri_attachment_pt_range_x1 = col18.number_input("Pri Attachment Pt Range Start", value=0.0025, format="%.4f")
     pri_attachment_pt_range_x2 = col19.number_input("Pri Attachment Pt Range End", value=0.005, format="%.4f")
     pri_attachment_pt_range_x3 = col20.number_input("Pri Attachment Pt Range Step", value=0.0005, format="%.4f")
