@@ -118,6 +118,7 @@ def notice_generator(deal_count, notice_pct, notice_pct_loss, low_severity_pct, 
 
 def loss_generator(notice_list, limit_list, low_low_severity_loss, low_high_severity_loss, med_low_severity_loss, med_high_severity_loss):
     loss_list = []
+    high_low_severity_loss = 10_000_000
     for index, notice in enumerate(notice_list):
         if notice == 0:
             loss_list.append(0) 
@@ -134,3 +135,18 @@ def loss_generator(notice_list, limit_list, low_low_severity_loss, low_high_seve
                 loss_list.append(random.randrange(high_low_severity_loss, 10_000_001))
     
     return loss_list
+
+def performance(df):
+    if df['Attachment_Pt'] - df['Loss_Amount'] >= 0:
+            df['Performance'] = df['Premium']
+    if df['Attachment_Pt'] - df['Loss_Amount'] <= 0:
+        df['Performance'] = df['Premium'] + df['Attachment_Pt'] - df['Loss_Amount']
+    return df['Performance']
+
+def df_generator(DV_list,pricing_list,attachment_pt_list,notice_list,loss_list,limit_list):
+    data_tuples = list(zip(DV_list,pricing_list,attachment_pt_list,notice_list,loss_list,limit_list))
+    df = pd.DataFrame(data_tuples, columns=['DV','RoL','Attachment_Pt_Pct','Notice','Loss_Amount','Limit'])
+    df['Premium'] = df['Limit'] * df['RoL']
+    df['Attachment_Pt'] = df['DV']*df['Attachment_Pt_Pct']
+    df['Performance'] = df.apply(performance, axis=1)
+    return df
