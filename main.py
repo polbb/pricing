@@ -43,9 +43,9 @@ st.divider()
 with st.container(border=True):
     st.title("Notice Percentage Distribution")
     col1, col2, col3, col4 = st.columns([2,2,2,2])
-    notice_pct_dist_x1 = col1.slider("Left", min_value=0.0, max_value=0.14, value=0.05, step=0.01)
-    notice_pct_dist_x2 = col2.slider("Center", min_value=0.06, max_value=0.24, value=0.15, step=0.01)
-    notice_pct_dist_x3 = col3.slider("Right", min_value=0.16, max_value=0.3, value=0.25, step=0.01)
+    notice_pct_dist_x1 = col1.text_input("Left", value=".05")
+    notice_pct_dist_x2 = col2.text_input("Center", value=".15")
+    notice_pct_dist_x3 = col3.text_input("Right", value=".25")
     notice_pct_dist_x4 = col4.text_input("Size", value="100000")
 
 
