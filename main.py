@@ -42,7 +42,7 @@ st.divider()
 
 with st.container(border=True):
     st.title("Notice Percentage Distribution")
-    col1, col2, col3, col4, _, _, _, _ = st.columns([2,2,2,2,1,1,1,1])
+    col1, col2, col3, col4 = st.columns([2,2,2,2])
     notice_pct_dist_x1 = col1.text_input("Left", value=".05")
     notice_pct_dist_x2 = col2.text_input("Center", value=".15")
     notice_pct_dist_x3 = col3.text_input("Right", value=".25")
