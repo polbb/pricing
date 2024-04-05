@@ -39,3 +39,38 @@ def DV_generator(deal_count, DV_range, sme_low_DV, sme_upper_DV, mm_low_DV, mm_u
     random.shuffle(DV_list)
     
     return DV_list
+
+def structure_generator(DV_list, low_limit, upper_limit, limit_range, primary_pct, xs_pct, pri_attachment_pt_range):
+    primary_xs_list = []
+    for dv in DV_list:
+        if dv > 750_000_000:
+            x = np.random.choice([0, 1], size=1, p=[primary_pct, xs_pct])
+            primary_xs_list.append(x[0])
+        else:
+            primary_xs_list.append(0)
+            
+    tower_limit_list = []
+    for value in DV_list:
+        tower_limit_list.append(random.randrange(value*.1, value*.2, 500_000)) 
+    
+    limit_list = []
+    for index, tower_limit in enumerate(tower_limit_list):
+        policy_limit = random.randrange(low_limit, upper_limit, limit_range)
+        if policy_limit >= tower_limit_list[index]:
+            policy_limit = tower_limit_list[index]
+            limit_list.append(policy_limit)
+        if policy_limit < tower_limit_list[index]:
+            limit_list.append(policy_limit) 
+        
+    attachment_pt_list = []        
+    for index, pri_v_xs in enumerate(primary_xs_list):
+        if pri_v_xs == 0:
+            y = np.random.choice(pri_attachment_pt_range, size=1)
+            attachment_pt_list.append(y[0])
+        if pri_v_xs == 1:
+            layer_num = int(tower_limit_list[index] // limit_list[index])
+            y = np.random.choice(pri_attachment_pt_range, size=1)
+            z = y + ((random.randrange(1, layer_num+1)*limit_list[index])/DV_list[index])
+            attachment_pt_list.append(z[0])
+
+    return limit_list, attachment_pt_list, primary_xs_list

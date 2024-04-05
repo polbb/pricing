@@ -15,7 +15,7 @@ import streamlit as st
 from dotenv import load_dotenv
 import os
 import json
-from utils import severity_generator, DV_generator
+from utils import severity_generator, DV_generator, structure_generator
 
 
 
@@ -29,10 +29,14 @@ aws_access_key_id = st.secrets.AWS_ACCESS_KEY_ID
 aws_secret_access_key = st.secrets.AWS_SECRET_ACCESS_KEY
 aws_default_region = st.secrets.AWS_DEFAULT_REGION
 
+def div():
+    st.divider()
+    
 st.title("ArgoXai - Pricing Tool")
 col1, col2, _, _, _, _, _, _ = st.columns([3,3,1,1,1,1,1,1])
 number_of_simulations = col1.text_input("Enter Number of Simulations")
 data = st.button("Search")
+
 st.divider()
 
 
@@ -120,7 +124,7 @@ with st.container(border=True):
     j_low_DV, j_upper_DV = col17.slider("Select J DV Range", min_value=500000000, max_value=10000000000, value=(750000000, 5000000000))
 
 with st.container(border=True):
-    col1, col2, col3 = st.columns(3)
+    col1, col2, col3, _ = st.columns([2,2,2,2])
     sme_pct = col1.number_input("SME %", value=0.35, format="%.2f")
     mm_pct = col2.number_input("MM %", value=0.55, format="%.2f")
     j_pct = col3.number_input("J %", value=0.1, format="%.2f")
@@ -128,3 +132,10 @@ with st.container(border=True):
 DV_list = DV_generator(deal_count, DV_range, sme_low_DV, sme_upper_DV, mm_low_DV, mm_upper_DV, sme_pct, mm_pct, j_pct, j_low_DV, j_upper_DV)
 
 st.write(f'DV list: {DV_list}')
+
+with st.container(border=True):
+    col4, col5, _ = st.columns([3,3,4])
+    low_limit, upper_limit = col4.slider("Select Limit Range", min_value=10000000, max_value=100000000, value=(30000000, 50000000), step=2500000)
+    limit_range = col5.number_input("Limit Range Increment", value=2500000)
+
+limit_list, attachment_pt_list, primary_xs_list = structure_generator(DV_list, low_limit, upper_limit, limit_range, primary_pct, xs_pct, pri_attachment_pt_range)
