@@ -201,9 +201,9 @@ for i in range(number_of_simulations):
     performance_stats.append(df['Performance'].sum().round(0))
 
 # Plotting the performance statistics using Plotly
-fig = px.histogram(performance_stats, nbins=100, title="Performance Statistics Distribution")
-fig.update_layout(bargap=0.1)
-fig.add_vline(x=np.mean(performance_stats), line_dash="dash", line_color="red", annotation_text="Mean", annotation_position="top right")
+fig = go.Figure(data=[go.Histogram(x=performance_stats, nbinsx=100)])
+fig.update_layout(title="Performance Statistics Distribution", bargap=0.1)
+fig.add_trace(go.Scatter(x=[np.mean(performance_stats)], y=[0], mode="markers+text", name="Mean", text=["Mean"], textposition="top center"))
 st.plotly_chart(fig)
 
 # Displaying additional performance statistics
