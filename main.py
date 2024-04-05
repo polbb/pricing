@@ -10,7 +10,6 @@ import math
 from random import randrange
 from datetime import datetime
 
-
 import re
 import streamlit as st
 from dotenv import load_dotenv
