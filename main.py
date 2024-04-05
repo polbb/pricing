@@ -35,15 +35,15 @@ aws_default_region = st.secrets.AWS_DEFAULT_REGION
 # s3 = boto3.client('s3', aws_access_key_id=aws_access_key_id, aws_secret_access_key=aws_secret_access_key, region_name=aws_default_region)
 
 st.title("ArgoXai - Pricing Tool")
-col1, col2, _, _, _, _, _, _ = st.columns([3,3,1,1,1,1,1,1])
+col1, col2, col3, col4, col5, col6, col7, col8 = st.columns([3,3,3,3,1,1,1,1])
 number_of_simulations = col1.text_input("Enter Number of Simulations")
-data = st.button("Search")
+data = col2.button("Search")
 st.divider()
 
-notice_pct_dist_x1 = col1.text_input("Enter notice_pct_dist_x1", value=".05")
-notice_pct_dist_x2 = col1.text_input("Enter notice_pct_dist_x2", value=".15")
-notice_pct_dist_x3 = col1.text_input("Enter notice_pct_dist_x3", value=".25")
-notice_pct_dist_x4 = col1.text_input("Enter notice_pct_dist_x4", value="100_000")
+notice_pct_dist_x1 = col3.text_input("Enter notice_pct_dist_x1", value=".05")
+notice_pct_dist_x2 = col4.text_input("Enter notice_pct_dist_x2", value=".15")
+notice_pct_dist_x3 = col5.text_input("Enter notice_pct_dist_x3", value=".25")
+notice_pct_dist_x4 = col6.text_input("Enter notice_pct_dist_x4", value="100_000")
 
 
 
