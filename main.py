@@ -196,21 +196,27 @@ with st.container(border=True):
         progress_bar = st.progress(0)
         # Adding placeholders for messages
         process_message = st.empty()
-        iteration_message = st.empty()
+        section_message = st.empty()
 
         for i in range(number_of_simulations):
             progress = int(((i+1)/number_of_simulations)*100)
             progress_bar.progress(progress)
             # Updating messages
             process_message.text(f"Processing: Simulation {i+1}/{number_of_simulations}")
-            iteration_message.text(f"Iteration: {i+1}")
+            
 
             notice_pct, notice_pct_loss, low_severity_pct, med_severity_pct, high_severity_pct = severity_generator(notice_pct_dist, notice_pct_loss_dist, severity_dist)
+            section_message.text(f"Severity Generation...")
             DV_list = DV_generator(deal_count, DV_range, sme_low_DV, sme_upper_DV, mm_low_DV, mm_upper_DV, sme_pct, mm_pct, j_pct, j_low_DV, j_upper_DV)
+            section_message.text(f"DV Generation...")
             limit_list, attachment_pt_list, primary_xs_list = structure_generator(DV_list, low_limit, upper_limit, limit_range, primary_pct, xs_pct, pri_attachment_pt_range)
+            section_message.text(f"Structure Generation...")
             pricing_list = pricing_generator(DV_list, limit_list, attachment_pt_list, primary_xs_list, pricing_range, sme_pricing_low, sme_pricing_high, mm_pricing_low, mm_pricing_high, j_pricing_low, j_pricing_high)
+            section_message.text(f"Pricing Generation...")
             notice_list = notice_generator(deal_count, notice_pct, notice_pct_loss, low_severity_pct, med_severity_pct, high_severity_pct)
+            section_message.text(f"Notice Generation...")
             loss_list = loss_generator(notice_list, limit_list, low_low_severity_loss, low_high_severity_loss, med_low_severity_loss, med_high_severity_loss)
+            section_message.text(f"Loss Generation...")
             df = df_generator(DV_list, pricing_list, attachment_pt_list, notice_list, loss_list, limit_list)
             performance_stats.append(df['Performance'].sum().round(0))
 
