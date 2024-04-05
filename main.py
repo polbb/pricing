@@ -158,7 +158,7 @@ limit_list, attachment_pt_list, primary_xs_list = structure_generator(DV_list, l
 # st.write("Primary XS List:", primary_xs_list)
 
 with st.container(border=True):
-    col21, col22, col23, col24, col25, col26, col27, col28, col29, col30 = st.columns([1,1,1,1,1,1,1,1,1,1])
+    col21, col22, col23, col24 = st.columns([1,1,1,1])
     pricing_range = col21.number_input("Pricing Range", value=0.05)
     sme_pricing_low, sme_pricing_high = col22.slider("Select SME Pricing Range", min_value=0.01, max_value=0.02, value=(0.012, 0.0145))
     mm_pricing_low, mm_pricing_high = col23.slider("Select MM Pricing Range", min_value=0.01, max_value=0.02, value=(0.0135, 0.0165))
