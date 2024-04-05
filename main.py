@@ -134,8 +134,21 @@ DV_list = DV_generator(deal_count, DV_range, sme_low_DV, sme_upper_DV, mm_low_DV
 st.write(f'DV list: {DV_list}')
 
 with st.container(border=True):
-    col4, col5, _ = st.columns([3,3,4])
+    col4, col5, col6, col7 = st.columns([2,2,2,2])
     low_limit, upper_limit = col4.slider("Select Limit Range", min_value=10000000, max_value=100000000, value=(30000000, 50000000), step=2500000)
     limit_range = col5.number_input("Limit Range Increment", value=2500000)
 
+with st.container(border=True):
+    col8, col9 = st.columns(2)
+    primary_pct = col8.number_input("Primary %", value=0.7, format="%.2f")
+    xs_pct = col9.number_input("XS %", value=0.3, format="%.2f")
+
+with st.container(border=True):
+    col18, col19, col20 = st.columns(3)
+    pri_attachment_pt_range_x1 = col18.number_input("Pri Attachment Pt Range Start", value=0.0025, format="%.4f")
+    pri_attachment_pt_range_x2 = col19.number_input("Pri Attachment Pt Range End", value=0.005, format="%.4f")
+    pri_attachment_pt_range_x3 = col20.number_input("Pri Attachment Pt Range Step", value=0.0005, format="%.4f")
+    pri_attachment_pt_range = np.arange(pri_attachment_pt_range_x1, pri_attachment_pt_range_x2, pri_attachment_pt_range_x3)
+
 limit_list, attachment_pt_list, primary_xs_list = structure_generator(DV_list, low_limit, upper_limit, limit_range, primary_pct, xs_pct, pri_attachment_pt_range)
+ 
