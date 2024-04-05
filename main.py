@@ -34,7 +34,7 @@ def div():
     
 st.title("ArgoXai - Pricing Tool")
 col1, col2, _, _, _, _, _, _ = st.columns([3,3,1,1,1,1,1,1])
-number_of_simulations = col1.text_input("Enter Number of Simulations")
+number_of_simulations = col1.number_input("Enter Number of Simulations", value=10000)
 data = st.button("Search")
 
 st.divider()
@@ -44,19 +44,19 @@ st.divider()
 with st.container(border=True):
     st.subheader("Notice Percentage Distribution")
     col1, col2, col3, col4 = st.columns([2,2,2,2])
-    notice_pct_dist_x1 = col1.text_input("Left", value=".05", key="notice_left")
-    notice_pct_dist_x2 = col2.text_input("Center", value=".15", key="notice_center")
-    notice_pct_dist_x3 = col3.text_input("Right", value=".25", key="notice_right")
-    notice_pct_dist_x4 = col4.text_input("Size", value="100000", key="notice_size")
+    notice_pct_dist_x1 = col1.number_input("Left", value=0.05, key="notice_left", format="%.2f")
+    notice_pct_dist_x2 = col2.number_input("Center", value=0.15, key="notice_center", format="%.2f")
+    notice_pct_dist_x3 = col3.number_input("Right", value=0.25, key="notice_right", format="%.2f")
+    notice_pct_dist_x4 = col4.number_input("Size", value=100000, key="notice_size")
     
     if data:
         # Generate Notice Percentage Distribution Plot
         fig_notice_pct = go.Figure()
         fig_notice_pct.add_trace(go.Histogram(x=np.random.triangular(
-            float(notice_pct_dist_x1), 
-            float(notice_pct_dist_x2), 
-            float(notice_pct_dist_x3), 
-            int(notice_pct_dist_x4)
+            notice_pct_dist_x1, 
+            notice_pct_dist_x2, 
+            notice_pct_dist_x3, 
+            notice_pct_dist_x4
         ), name="Notice %"))
         st.plotly_chart(fig_notice_pct)
 
@@ -64,19 +64,19 @@ with st.container(border=True):
 with st.container(border=True):
     st.subheader("Notice Percentage Loss Distribution")
     col5, col6, col7, col8 = st.columns([2,2,2,2])
-    notice_pct_loss_dist_x1 = col5.text_input("Left", value=".15", key="loss_left")
-    notice_pct_loss_dist_x2 = col6.text_input("Center", value=".25", key="loss_center")
-    notice_pct_loss_dist_x3 = col7.text_input("Right", value=".35", key="loss_right")
-    notice_pct_loss_dist_x4 = col8.text_input("Size", value="100000", key="loss_size")
+    notice_pct_loss_dist_x1 = col5.number_input("Left", value=0.15, key="loss_left", format="%.2f")
+    notice_pct_loss_dist_x2 = col6.number_input("Center", value=0.25, key="loss_center", format="%.2f")
+    notice_pct_loss_dist_x3 = col7.number_input("Right", value=0.35, key="loss_right", format="%.2f")
+    notice_pct_loss_dist_x4 = col8.number_input("Size", value=100000, key="loss_size")
     
     if data:
         # Generate Notice Percentage Loss Distribution Plot
         fig_notice_pct_loss = go.Figure()
         fig_notice_pct_loss.add_trace(go.Histogram(x=np.random.triangular(
-            float(notice_pct_loss_dist_x1), 
-            float(notice_pct_loss_dist_x2), 
-            float(notice_pct_loss_dist_x3), 
-            int(notice_pct_loss_dist_x4)
+            notice_pct_loss_dist_x1, 
+            notice_pct_loss_dist_x2, 
+            notice_pct_loss_dist_x3, 
+            notice_pct_loss_dist_x4
         ), name="Notice % Loss"))
         st.plotly_chart(fig_notice_pct_loss)
 
@@ -84,34 +84,34 @@ with st.container(border=True):
 with st.container(border=True):
     st.subheader("Severity Distribution")
     col9, col10, col11, col12 = st.columns([2,2,2,2])
-    severity_dist_x1 = col9.text_input("Left", value=".65", key="severity_left")
-    severity_dist_x2 = col10.text_input("Center", value=".7", key="severity_center")
-    severity_dist_x3 = col11.text_input("Right", value=".75", key="severity_right")
-    severity_dist_x4 = col12.text_input("Size", value="100000", key="severity_size")
+    severity_dist_x1 = col9.number_input("Left", value=0.65, key="severity_left", format="%.2f")
+    severity_dist_x2 = col10.number_input("Center", value=0.7, key="severity_center", format="%.2f")
+    severity_dist_x3 = col11.number_input("Right", value=0.75, key="severity_right", format="%.2f")
+    severity_dist_x4 = col12.number_input("Size", value=100000, key="severity_size")
     
     if data:
         # Generate Severity Distribution Plot
         fig_severity = go.Figure()
         fig_severity.add_trace(go.Histogram(x=np.random.triangular(
-            float(severity_dist_x1), 
-            float(severity_dist_x2), 
-            float(severity_dist_x3), 
-            int(severity_dist_x4)
+            severity_dist_x1, 
+            severity_dist_x2, 
+            severity_dist_x3, 
+            severity_dist_x4
         ), name="Severity"))
         st.plotly_chart(fig_severity)
 
 
-notice_pct_dist = np.random.triangular(float(notice_pct_dist_x1), float(notice_pct_dist_x2), float(notice_pct_dist_x3), int(notice_pct_dist_x4))
-notice_pct_loss_dist = np.random.triangular(float(notice_pct_loss_dist_x1), float(notice_pct_loss_dist_x2), float(notice_pct_loss_dist_x3), int(notice_pct_loss_dist_x4))
-severity_dist = np.random.triangular(float(severity_dist_x1), float(severity_dist_x2), float(severity_dist_x3), int(severity_dist_x4))
+notice_pct_dist = np.random.triangular(notice_pct_dist_x1, notice_pct_dist_x2, notice_pct_dist_x3, notice_pct_dist_x4)
+notice_pct_loss_dist = np.random.triangular(notice_pct_loss_dist_x1, notice_pct_loss_dist_x2, notice_pct_loss_dist_x3, notice_pct_loss_dist_x4)
+severity_dist = np.random.triangular(severity_dist_x1, severity_dist_x2, severity_dist_x3, severity_dist_x4)
 
 notice_pct, notice_pct_loss, low_severity_pct, med_severity_pct, high_severity_pct = severity_generator(notice_pct_dist, notice_pct_loss_dist, severity_dist)
 
-# st.write("Notice %:", notice_pct)
-# st.write("Notice % Loss:", notice_pct_loss)
-# st.write("Low Severity %:", low_severity_pct)
-# st.write("Medium Severity %:", med_severity_pct)
-# st.write("High Severity %:", high_severity_pct)
+st.write("Notice %:", notice_pct)
+st.write("Notice % Loss:", notice_pct_loss)
+st.write("Low Severity %:", low_severity_pct)
+st.write("Medium Severity %:", med_severity_pct)
+st.write("High Severity %:", high_severity_pct)
 
 with st.container(border=True):
     col13, col14, _, _ = st.columns([2,2,2,2])
@@ -132,7 +132,7 @@ with st.container(border=True):
 
 DV_list = DV_generator(deal_count, DV_range, sme_low_DV, sme_upper_DV, mm_low_DV, mm_upper_DV, sme_pct, mm_pct, j_pct, j_low_DV, j_upper_DV)
 
-# st.write(f'DV list: {DV_list}')
+st.write(f'DV list: {DV_list}')
 
 with st.container(border=True):
     col4, col5, col6, col7 = st.columns([2,2,2,2])
@@ -152,4 +152,3 @@ with st.container(border=True):
     pri_attachment_pt_range = np.arange(pri_attachment_pt_range_x1, pri_attachment_pt_range_x2, pri_attachment_pt_range_x3)
 
 limit_list, attachment_pt_list, primary_xs_list = structure_generator(DV_list, low_limit, upper_limit, limit_range, primary_pct, xs_pct, pri_attachment_pt_range)
- 
