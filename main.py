@@ -187,36 +187,50 @@ with st.container():
 # df = df_generator(DV_list, pricing_list, attachment_pt_list, notice_list, loss_list, limit_list)
 
 
-performance_stats = []
+with st.container():
+    # Initialize an empty plot before calculations are triggered by the search button
+    if not data:
+        st.write("Please initiate calculations by clicking the 'Search' button.")
+        st.empty()
+    else:
+        performance_stats = []
 
-for i in range(number_of_simulations):
-    
-    notice_pct, notice_pct_loss, low_severity_pct, med_severity_pct, high_severity_pct = severity_generator(notice_pct_dist, notice_pct_loss_dist, severity_dist)
-    DV_list = DV_generator(deal_count, DV_range, sme_low_DV, sme_upper_DV, mm_low_DV, mm_upper_DV, sme_pct, mm_pct, j_pct, j_low_DV, j_upper_DV)
-    limit_list, attachment_pt_list, primary_xs_list = structure_generator(DV_list, low_limit, upper_limit, limit_range, primary_pct, xs_pct, pri_attachment_pt_range)
-    pricing_list = pricing_generator(DV_list, limit_list, attachment_pt_list, primary_xs_list, pricing_range, sme_pricing_low, sme_pricing_high, mm_pricing_low, mm_pricing_high, j_pricing_low, j_pricing_high)
-    notice_list = notice_generator(deal_count, notice_pct, notice_pct_loss, low_severity_pct, med_severity_pct, high_severity_pct)
-    loss_list = loss_generator(notice_list, limit_list, low_low_severity_loss, low_high_severity_loss, med_low_severity_loss, med_high_severity_loss)
-    df = df_generator(DV_list, pricing_list, attachment_pt_list, notice_list, loss_list, limit_list)
-    performance_stats.append(df['Performance'].sum().round(0))
+        # Adding a progress bar
+        progress_bar = st.progress(0)
 
-# Plotting the performance statistics using Plotly
-fig = px.histogram(performance_stats, nbins=100, title="Performance Statistics Distribution")
-fig.update_layout(bargap=0.1)
-fig.add_vline(x=np.mean(performance_stats), line_dash="dash", line_color="red", annotation_text="Mean", annotation_position="top right")
-st.plotly_chart(fig)
+        for i in range(number_of_simulations):
+            progress = int(((i+1)/number_of_simulations)*100)
+            progress_bar.progress(progress)
 
-# Displaying additional performance statistics
-percentage_above_0 = len([i for i in performance_stats if i > 0])/len(performance_stats)
-percentage_above_1m = len([i for i in performance_stats if i > 1_000_000])/len(performance_stats)
-percentage_above_10m = len([i for i in performance_stats if i > 10_000_000])/len(performance_stats)
-average_performance = round(sum(performance_stats)/len(performance_stats))
-max_performance = round(max(performance_stats))
-min_performance = round(min(performance_stats))
+            notice_pct, notice_pct_loss, low_severity_pct, med_severity_pct, high_severity_pct = severity_generator(notice_pct_dist, notice_pct_loss_dist, severity_dist)
+            DV_list = DV_generator(deal_count, DV_range, sme_low_DV, sme_upper_DV, mm_low_DV, mm_upper_DV, sme_pct, mm_pct, j_pct, j_low_DV, j_upper_DV)
+            limit_list, attachment_pt_list, primary_xs_list = structure_generator(DV_list, low_limit, upper_limit, limit_range, primary_pct, xs_pct, pri_attachment_pt_range)
+            pricing_list = pricing_generator(DV_list, limit_list, attachment_pt_list, primary_xs_list, pricing_range, sme_pricing_low, sme_pricing_high, mm_pricing_low, mm_pricing_high, j_pricing_low, j_pricing_high)
+            notice_list = notice_generator(deal_count, notice_pct, notice_pct_loss, low_severity_pct, med_severity_pct, high_severity_pct)
+            loss_list = loss_generator(notice_list, limit_list, low_low_severity_loss, low_high_severity_loss, med_low_severity_loss, med_high_severity_loss)
+            df = df_generator(DV_list, pricing_list, attachment_pt_list, notice_list, loss_list, limit_list)
+            performance_stats.append(df['Performance'].sum().round(0))
 
-st.write(f"Percentage of scenarios above 0: {percentage_above_0*100:.2f}%")
-st.write(f"Percentage of scenarios above 1m: {percentage_above_1m*100:.2f}%")
-st.write(f"Percentage of scenarios above 10m: {percentage_above_10m*100:.2f}%")
-st.write(f"Average: {average_performance}")
-st.write(f"Max: {max_performance}")
-st.write(f"Min: {min_performance}")
+        # Plotting the performance statistics using Plotly
+        fig = px.histogram(performance_stats, nbins=100, title="Performance Statistics Distribution")
+        fig.update_layout(bargap=0.1)
+        fig.add_vline(x=np.mean(performance_stats), line_dash="dash", line_color="red", annotation_text="Mean", annotation_position="top right")
+        st.plotly_chart(fig)
+
+        # Displaying additional performance statistics
+        percentage_above_0 = len([i for i in performance_stats if i > 0])/len(performance_stats)
+        percentage_above_1m = len([i for i in performance_stats if i > 1_000_000])/len(performance_stats)
+        percentage_above_10m = len([i for i in performance_stats if i > 10_000_000])/len(performance_stats)
+        average_performance = round(sum(performance_stats)/len(performance_stats))
+        max_performance = round(max(performance_stats))
+        min_performance = round(min(performance_stats))
+
+        st.write(f"Percentage of scenarios above 0: {percentage_above_0*100:.2f}%")
+        st.write(f"Percentage of scenarios above 1m: {percentage_above_1m*100:.2f}%")
+        st.write(f"Percentage of scenarios above 10m: {percentage_above_10m*100:.2f}%")
+        st.write(f"Average: {average_performance}")
+        st.write(f"Max: {max_performance}")
+        st.write(f"Min: {min_performance}")
+
+        # Reset progress bar after completion
+        progress_bar.empty()
