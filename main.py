@@ -1,10 +1,16 @@
-import datetime
-import boto3
-from bs4 import BeautifulSoup
-from fuzzywuzzy import fuzz
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import random
+import numpy as np
+import matplotlib.pyplot as plt
+import math
+from random import randrange
+from datetime import datetime
+
+
 import re
 import streamlit as st
-import pandas as pd
 from dotenv import load_dotenv
 import os
 import json
@@ -34,6 +40,28 @@ number_of_simulations = col1.text_input("Enter Number of Simulations")
 data = st.button("Search")
 st.divider()
 
+notice_pct_dist_x1 = col1.text_input("Enter notice_pct_dist_x1", value=".05")
+notice_pct_dist_x2 = col1.text_input("Enter notice_pct_dist_x2", value=".15")
+notice_pct_dist_x3 = col1.text_input("Enter notice_pct_dist_x3", value=".25")
+notice_pct_dist_x4 = col1.text_input("Enter notice_pct_dist_x4", value="100_000")
+
+
+
 if data:
+
     st.write(number_of_simulations)
+
+    for i in range(num_simulations):
+
+        notice_pct, notice_pct_loss, low_severity_pct, med_severity_pct, high_severity_pct = severity_generator(notice_pct_dist, notice_pct_loss_dist, severity_dist)
+        DV_list = DV_generator(deal_count, DV_range, sme_low_DV, sme_upper_DV, mm_low_DV, mm_upper_DV, sme_pct, mm_pct, j_pct)
+        limit_list, attachment_pt_list, primary_xs_list = structure_generator(DV_list, low_limit, upper_limit, limit_range, primary_pct, xs_pct, pri_attachment_pt_range)
+        pricing_list = pricing_generator(DV_list, limit_list, attachment_pt_list, primary_xs_list, pricing_range, sme_pricing_low, sme_pricing_high, mm_pricing_low, mm_pricing_high, j_pricing_low, j_pricing_high)
+        notice_list = notice_generator(deal_count, notice_pct, notice_pct_loss, low_severity_pct, med_severity_pct, high_severity_pct)
+        loss_list = loss_generator(notice_list, limit_list, low_low_severity_loss, low_high_severity_loss, med_low_severity_loss, med_high_severity_loss)
+        df = df_generator(DV_list, pricing_list, attachment_pt_list, notice_list, loss_list, limit_list)
+        performance_stats.append(df['Performance'].sum().round(0))
+
+    sns.displot(performance_stats, bins=100, kde=True);
+
 
