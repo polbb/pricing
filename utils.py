@@ -74,3 +74,22 @@ def structure_generator(DV_list, low_limit, upper_limit, limit_range, primary_pc
             attachment_pt_list.append(z[0])
 
     return limit_list, attachment_pt_list, primary_xs_list
+
+def pricing_generator(DV_list, limit_list, attachment_pt_list, primary_xs_list, pricing_range, sme_pricing_low, sme_pricing_high, mm_pricing_low, mm_pricing_high, j_pricing_low, j_pricing_high):
+    pricing_list = []
+    for index, DV in enumerate(DV_list):
+        if DV > 9_999_999 and DV < 75_000_001:
+            pricing_list.append(round(random.uniform(sme_pricing_low, sme_pricing_high), 4)) 
+        if DV > 75_000_000 and DV < 750_000_001:
+            pricing_list.append(round(random.uniform(mm_pricing_low, mm_pricing_high), 4)) 
+        if DV > 750_000_000 and primary_xs_list[index] == 1:
+            attachment_pt = DV_list[index] * attachment_pt_list[index]
+            ilf_mult = int(attachment_pt // limit_list[index]) 
+            ilf_np_array = np.random.choice(np.arange(.75, .85, .025), size=ilf_mult)
+            ilf = np.prod(ilf_np_array)
+            xs_pricing = ilf * round(random.uniform(mm_pricing_low, mm_pricing_high), 4)
+            pricing_list.append(xs_pricing)
+        if DV > 750_000_000 and primary_xs_list[index] == 0:
+            pricing_list.append(round(random.uniform(j_pricing_low, j_pricing_high), 4)) 
+
+    return pricing_list
