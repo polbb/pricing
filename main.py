@@ -153,4 +153,6 @@ with st.container(border=True):
 
 limit_list, attachment_pt_list, primary_xs_list = structure_generator(DV_list, low_limit, upper_limit, limit_range, primary_pct, xs_pct, pri_attachment_pt_range)
 
-
+st.write("Limit List:", limit_list)
+st.write("Attachment Point List:", attachment_pt_list)
+st.write("Primary XS List:", primary_xs_list)
