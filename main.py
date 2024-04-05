@@ -107,11 +107,11 @@ severity_dist = np.random.triangular(severity_dist_x1, severity_dist_x2, severit
 
 notice_pct, notice_pct_loss, low_severity_pct, med_severity_pct, high_severity_pct = severity_generator(notice_pct_dist, notice_pct_loss_dist, severity_dist)
 
-st.write("Notice %:", notice_pct)
-st.write("Notice % Loss:", notice_pct_loss)
-st.write("Low Severity %:", low_severity_pct)
-st.write("Medium Severity %:", med_severity_pct)
-st.write("High Severity %:", high_severity_pct)
+# st.write("Notice %:", notice_pct)
+# st.write("Notice % Loss:", notice_pct_loss)
+# st.write("Low Severity %:", low_severity_pct)
+# st.write("Medium Severity %:", med_severity_pct)
+# st.write("High Severity %:", high_severity_pct)
 
 with st.container(border=True):
     col13, col14, _, _ = st.columns([2,2,2,2])
@@ -132,7 +132,7 @@ with st.container(border=True):
 
 DV_list = DV_generator(deal_count, DV_range, sme_low_DV, sme_upper_DV, mm_low_DV, mm_upper_DV, sme_pct, mm_pct, j_pct, j_low_DV, j_upper_DV)
 
-st.write(f'DV list: {DV_list}')
+# st.write(f'DV list: {DV_list}')
 
 with st.container(border=True):
     col4, col5, col6, col7 = st.columns([2,2,2,2])
@@ -152,3 +152,7 @@ with st.container(border=True):
     pri_attachment_pt_range = np.arange(pri_attachment_pt_range_x1, pri_attachment_pt_range_x2, pri_attachment_pt_range_x3)
 
 limit_list, attachment_pt_list, primary_xs_list = structure_generator(DV_list, low_limit, upper_limit, limit_range, primary_pct, xs_pct, pri_attachment_pt_range)
+
+st.write("Limit List:", limit_list)
+st.write("Attachment Point List:", attachment_pt_list)
+st.write("Primary XS List:", primary_xs_list)
