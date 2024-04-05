@@ -33,6 +33,7 @@ number_of_simulations = col1.text_input("Enter Number of Simulations")
 data = st.button("Search")
 st.divider()
 
+
 # Notice Percentage Distribution
 with st.container(border=True):
     col1, col2, col3, col4 = st.columns([2,2,2,2])
