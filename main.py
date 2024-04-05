@@ -15,7 +15,7 @@ import streamlit as st
 from dotenv import load_dotenv
 import os
 import json
-from utils import severity_generator, DV_generator, structure_generator, pricing_generator, notice_generator
+from utils import severity_generator, DV_generator, structure_generator, pricing_generator, notice_generator, loss_generator
 
 
 
@@ -174,3 +174,9 @@ def w(string):
 notice_list = notice_generator(deal_count, notice_pct, notice_pct_loss, low_severity_pct, med_severity_pct, high_severity_pct)
 
 w(f'notice list: {notice_list}')
+
+with st.container():
+    col1, col2,_,_ = st.columns([1,1,1,1])
+    low_low_severity_loss, low_high_severity_loss = col1.slider("Select Low Severity Loss Range", min_value=0, max_value=1000000, value=(0, 1000000))
+    med_low_severity_loss, med_high_severity_loss = col2.slider("Select Medium Severity Loss Range", min_value=1000000, max_value=10000000, value=(1000000, 10000000))
+    loss_list = loss_generator(notice_list, limit_list, low_low_severity_loss, low_high_severity_loss, med_low_severity_loss, med_high_severity_loss)

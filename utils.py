@@ -115,3 +115,22 @@ def notice_generator(deal_count, notice_pct, notice_pct_loss, low_severity_pct, 
     random.shuffle(notice_list)
     
     return notice_list 
+
+def loss_generator(notice_list, limit_list, low_low_severity_loss, low_high_severity_loss, med_low_severity_loss, med_high_severity_loss):
+    loss_list = []
+    for index, notice in enumerate(notice_list):
+        if notice == 0:
+            loss_list.append(0) 
+        if notice == 1:
+            loss_list.append(0) 
+        if notice == 2:
+            loss_list.append(random.randrange(low_low_severity_loss, low_high_severity_loss)) 
+        if notice == 3:
+            loss_list.append(random.randrange(med_low_severity_loss, med_high_severity_loss))
+        if notice == 4:
+            if limit_list[index] > 10_000_000:
+                loss_list.append(random.randrange(high_low_severity_loss, limit_list[index]))
+            else:
+                loss_list.append(random.randrange(high_low_severity_loss, 10_000_001))
+    
+    return loss_list
