@@ -4,6 +4,8 @@ import numpy as np
 import random
 import numpy as np
 # import matplotlib.pyplot as plt
+import plotly.graph_objects as go
+
 import math
 from random import randrange
 from datetime import datetime
@@ -48,16 +50,22 @@ with st.container(border=True):
     notice_pct_dist_x3 = col3.text_input("Right", value=".25")
     notice_pct_dist_x4 = col4.text_input("Size", value="100000")
 
-
-
 if data:
+    # st.write(number_of_simulations)
+    # st.write(f'Enter notice_pct_dist_x1: {notice_pct_dist_x1}')
+    # st.write(f'Enter notice_pct_dist_x2: {notice_pct_dist_x2}')
+    # st.write(f'Enter notice_pct_dist_x3: {notice_pct_dist_x3}')
+    # st.write(f'Enter notice_pct_dist_x4: {notice_pct_dist_x4}')
 
-    st.write(number_of_simulations)
-    st.write(f'Enter notice_pct_dist_x1: {notice_pct_dist_x1}')
-    st.write(f'Enter notice_pct_dist_x2: {notice_pct_dist_x2}')
-    st.write(f'Enter notice_pct_dist_x3: {notice_pct_dist_x3}')
-    st.write(f'Enter notice_pct_dist_x4: {notice_pct_dist_x4}')
-
+    # Generate a distribution plot using the input values
+    fig = go.Figure(data=[go.Histogram(x=np.random.triangular(
+        float(notice_pct_dist_x1), 
+        float(notice_pct_dist_x2), 
+        float(notice_pct_dist_x3), 
+        int(notice_pct_dist_x4)
+    ))])
+    fig.update_layout(title_text='Notice Percentage Distribution Plot')
+    st.plotly_chart(fig)
 
     # for i in range(num_simulations):
 
